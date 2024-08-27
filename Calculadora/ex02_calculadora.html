@@ -4,19 +4,64 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .container h2 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .pure-form input[type="text"] {
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+        }
+        .pure-form select, .pure-form input[type="submit"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <form action="ex02_calculadora.php" method="GET" name="soma">
-        <input type="text" name="a">
-        <input type="text" name="b">
-        <select name="operadores" id="operadores">
-            <option value="adicao">soma</option>
-            <option value="subtracao">sub</option>
-            <option value="multiplicacao">m</option>
-            <option value="divisao">d</option>
-        </select>
-        <input type="submit" name="Enviar">
-    </form>
+    <div class="container">
+        <h2>Calculadora</h2>
+        <form action="ex02_calculadora.php" method="GET" name="ex02_calculadora" class="pure-form">
+            <label for="a">Valor 1:</label>
+            <input type="text" name="a" id="a" placeholder="Valor 1"><br>
+            <label for="b">Valor 2:</label>
+            <input type="text" name="b" id="b" placeholder="Valor 2"><br>
+            <label for="operadores">Operação:</label>
+            <select name="operadores" id="operadores">
+                <option value="adicao">Soma</option>
+                <option value="subtracao">Subtração</option>
+                <option value="multiplicacao">Multiplicação</option>
+                <option value="divisao">Divisão</option>
+                <option value="raiz">Raiz Quadrada</option>
+                <option value="troca">Troca de Sinal</option>
+                <option value="1porX">Divisão de 1 por X</option>
+                <option value="seno">Seno</option>
+                <option value="cosseno">Cosseno</option>
+                <option value="tangente">Tangente</option>        
+            </select>
+            <input type="submit" name="Enviar" value="Calcular" class="pure-button pure-button-primary">
+        </form>
+    </div>
 </body>
 </html>
+
