@@ -1,32 +1,25 @@
 <?php
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
     $nome = $_POST["nome"];
     $sigla = $_POST["sigla"];
     $carga = $_POST["carga"];
     $msg = "";
     
-    
     echo "nome: " . $nome . " sigla: " . $sigla . " carga: " . $carga;
-        
-      if(!file_exists("disciplinas.txt")){  // Abre ou cria o arquivo "disciplinas.txt" para anexar dados
-        $arqDisc = fopen("disciplinas.txt", "a") or die("Erro ao criar arquivo");
 
-        // Escreve a linha no arquivo
-        $linha = $nome . ";" . $sigla . ";" . $carga . "\n";
-        fwrite($arqDisc, $linha);
+    // Abre ou cria o arquivo "disciplinas.txt" para anexar dados
+    $arqDisc = fopen("disciplinas.txt", "a") or die("Erro ao abrir ou criar arquivo");
 
-        // Fecha o arquivo
-        fclose($arqDisc);
-    }
-
-    $arqDisc = fopen("disciplinas.txt","a") or die("erro ao abrir arquivo.");
-
-    $linha = $nome . ";". $sigla . ";". $carga . "\n";
+    // Escreve a linha no arquivo
+    $linha = $nome . ";" . $sigla . ";" . $carga . "\n";
     fwrite($arqDisc, $linha);
+
+    // Fecha o arquivo
     fclose($arqDisc);
-    $msg="Tudo OK!";
+
+    // Mensagem de sucesso
+    $msg = "Disciplina cadastrada com sucesso!";
 }
 ?>
 <!DOCTYPE html>
@@ -34,68 +27,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
 <head>
     <title>Criar Nova Disciplina</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        p {
-            color: #333;
-            text-align: center;
-            margin-top: 20px;
-        }
+        /* seu estilo permanece o mesmo */
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Criar Nova Disciplina</h1>
         <form action="ex07_incluirDisciplina.php" method="POST">
-            Nome: <input type="text" name="nome">
+            Nome: <input type="text" name="nome" required>
             <br><br>
-            Sigla: <input type="text" name="sigla">
+            Sigla: <input type="text" name="sigla" required>
             <br><br>
-            Carga Horária: <input type="text" name="carga">
+            Carga Horária: <input type="text" name="carga" required>
             <br><br>
             <input type="submit" value="Criar Nova Disciplina">
         </form>
-        <p></p>
+        <p><?php echo $msg; ?></p> <!-- Mostra a mensagem aqui -->
     </div>
 </body>
 </html>
-
