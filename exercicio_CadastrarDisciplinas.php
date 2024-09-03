@@ -1,17 +1,16 @@
 <?php
-$msg = "";
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
-    $nome = trim($_POST["nome"]);
-    $sigla = trim($_POST["sigla"]);
-    $carga = trim($_POST["carga"]);
+    $nome = $_POST["nome"];
+    $sigla = $_POST["sigla"];
+    $carga = $_POST["carga"];
+    $msg = "";
     
-    if (empty($nome) || empty($sigla) || empty($carga)) {
-        $msg = "Por favor, preencha todos os campos.";
-    } else {
-        $msg = "nome: " . $nome . " sigla: " . $sigla . " carga: " . $carga;
+    
+    echo "nome: " . $nome . " sigla: " . $sigla . " carga: " . $carga;
         
-        // Abre ou cria o arquivo "disciplinas.txt" para anexar dados
+      if(!file_exists("disciplinas.txt")){  // Abre ou cria o arquivo "disciplinas.txt" para anexar dados
         $arqDisc = fopen("disciplinas.txt", "a") or die("Erro ao criar arquivo");
 
         // Escreve a linha no arquivo
@@ -20,9 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
 
         // Fecha o arquivo
         fclose($arqDisc);
-        
-        $msg = "Disciplina criada com sucesso!";
     }
+
+    $arqDisc = fopen("disciplinas.txt","a") or die("erro ao abrir arquivo.");
+
+    $linha = $nome . ";". $sigla . ";". $carga . "\n";
+    fwrite($arqDisc, $linha);
+    fclose($arqDisc);
+    $msg="Tudo OK!";
 }
 ?>
 <!DOCTYPE html>
@@ -90,7 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
             <br><br>
             <input type="submit" value="Criar Nova Disciplina">
         </form>
-        <p><?php echo $msg; ?></p>
+        <p></p>
     </div>
 </body>
 </html>
+
